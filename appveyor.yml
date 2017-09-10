@@ -1,0 +1,26 @@
+version: 0.0.{build}
+
+image: Visual Studio 2015
+
+environment:
+  PTHON_EXE: C:\Python34-x64\python
+  PIP_EXE: C:\Python34-x64\Scripts\pip
+  NOSE_EXE: C:\Python34-x64\Scripts\nosetests
+    
+init:
+  - git config --global core.autocrlf input
+
+install:
+  - echo "install scripts"
+  - call %PIP_EXE% install mxnet --pre
+  - call %PIP_EXE% nose
+
+before_build:
+  - echo "before build scripts"
+  - git clone --recursive https://github.com/apache/incubator-mxnet mxnet
+
+after_build:
+  - echo "after build scripts"
+
+build_script:
+  - call %NOSE_EXE% -v mxnet\tests\python\unittest\test_gluon.py 
