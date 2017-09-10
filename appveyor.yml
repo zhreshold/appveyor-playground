@@ -13,7 +13,7 @@ init:
 install:
   - echo "install scripts"
   - call %PIP_EXE% install mxnet --pre
-  - call %PIP_EXE% nose
+  - call %PIP_EXE% install nose
 
 before_build:
   - echo "before build scripts"
